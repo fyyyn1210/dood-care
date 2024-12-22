@@ -248,7 +248,7 @@ app.get("/api/get-product", (req, res) => {
                 pages: Math.ceil(count / perPage),
               });
             } else {
-              res.status(400).json({
+              res.status(200).json({
                 errorMessage: "There is no product!",
                 status: false,
               });
