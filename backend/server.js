@@ -63,7 +63,7 @@ app.use(
 
 app.use("/", (req, res, next) => {
   try {
-    if (req.path == "/login" || req.path == "/register" || req.path == "/") {
+    if (req.path == "/api/login" || req.path == "/api/register" || req.path == "/") {
       next();
     } else if (req.headers.token == "icikiwir") {
       console.log("lolos icikiwir")
@@ -90,7 +90,7 @@ app.use("/", (req, res, next) => {
   }
 });
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.status(200).json({
     status: true,
     title: "Apis",
@@ -98,7 +98,7 @@ app.get("/", (req, res) => {
 });
 
 /* login api */
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   try {
     if (req.body && req.body.username && req.body.password) {
       let find = await user.findOne({ username: req.body.username });
@@ -157,7 +157,7 @@ function checkUserAndGenerateToken(data, req, res) {
 }
 
 /* Api to add Product */
-app.post("/add-product", async (req, res) => {
+app.post("/api/add-product", async (req, res) => {
   console.error(req.body);
   try {
     if (
@@ -205,7 +205,7 @@ app.post("/add-product", async (req, res) => {
   }
 });
 
-app.get("/get-product", (req, res) => {
+app.get("/api/get-product", (req, res) => {
   try {
     var query = {};
     // query["$and"] = [];
