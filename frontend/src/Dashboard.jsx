@@ -62,7 +62,7 @@ class Dashboard extends Component {
       data = `${data}&search=${this.state.search}`;
     }
     axios
-      .get(`https://dood-care.vercel.app/api/get-product${data}`, {
+      .get(`https://dood-server.vercel.app/api/get-product${data}`, {
         headers: {
           token: this.state.token,
         },
@@ -121,7 +121,7 @@ class Dashboard extends Component {
     file.append("target_download_url", this.state.target_download_url);
 
     axios
-      .post("https://dood-care.vercel.app/api/add-product", this.state, {
+      .post("https://dood-server.vercel.app/api/add-product", this.state, {
         headers: {
           // "content-type": "multipart/form-data",
           token: this.state.token,

@@ -18,7 +18,7 @@ class Register extends React.Component {
 
   register = () => {
 
-    axios.post('http://localhost:2000/register', {
+    axios.post('https://dood-server.vercel.app/api/register', {
       username: this.state.username,
       password: this.state.password,
     }).then((res) => {

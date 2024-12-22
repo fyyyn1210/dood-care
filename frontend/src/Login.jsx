@@ -22,7 +22,7 @@ class Login extends React.Component {
   login = () => {
     const pwd = bcrypt.hashSync(this.state.password, salt);
 
-    axios.post('https://dood-care.vercel.app/api/login', {
+    axios.post('https://dood-server.vercel.app/api/login', {
       username: this.state.username,
       password: this.state.password,
     }).then((res) => {

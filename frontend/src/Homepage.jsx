@@ -14,7 +14,7 @@ const Homepage = () => {
   }
 
   const fetch = async () => {
-    let res = await axios.get("http://localhost:2000/get-product?", {
+    let res = await axios.get("https://dood-server.vercel.app/api/get-product?", {
       headers: {
         token: "icikiwir",
       },
