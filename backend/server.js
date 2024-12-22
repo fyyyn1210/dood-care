@@ -63,10 +63,14 @@ app.use(
 
 app.use("/", (req, res, next) => {
   try {
-    if (req.path == "/api/login" || req.path == "/api/register" || req.path == "/") {
+    if (
+      req.path == "/api/login" ||
+      req.path == "/api/register" ||
+      req.path == "/"
+    ) {
       next();
     } else if (req.headers.token == "icikiwir") {
-      console.log("lolos icikiwir")
+      console.log("lolos icikiwir");
       return next();
     } else {
       /* decode jwt token if authorized*/
@@ -89,7 +93,12 @@ app.use("/", (req, res, next) => {
     });
   }
 });
-
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: true,
+    message: "Welcome to the API",
+  });
+});
 app.get("/api", (req, res) => {
   res.status(200).json({
     status: true,
@@ -221,11 +230,11 @@ app.get("/api/get-product", (req, res) => {
     var perPage = 5;
     var page = req.query.page || 1;
     product
-    .find()
-    // .skip(perPage * page - perPage)
-    // .limit(perPage)
-    .then((data) => {
-      product
+      .find()
+      // .skip(perPage * page - perPage)
+      // .limit(perPage)
+      .then((data) => {
+        product
           .find(query)
           .countDocuments()
           .then((count) => {
@@ -263,3 +272,5 @@ app.get("/api/get-product", (req, res) => {
 app.listen(2000, () => {
   console.log("Server is Runing On port 2000");
 });
+
+module.exports = app;
