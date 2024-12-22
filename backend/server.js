@@ -238,21 +238,21 @@ app.get("/api/get-product", (req, res) => {
           .find(query)
           .countDocuments()
           .then((count) => {
-            if (data && data.length > 0) {
-              res.status(200).json({
-                status: true,
-                title: "Product retrived.",
-                products: data,
-                current_page: page,
-                total: count,
-                pages: Math.ceil(count / perPage),
-              });
-            } else {
-              res.status(200).json({
-                errorMessage: "There is no product!",
-                status: false,
-              });
-            }
+            // if (data && data.length > 0) {
+            res.status(200).json({
+              status: true,
+              title: "Product retrived.",
+              products: data ?? [],
+              current_page: page,
+              total: count,
+              pages: Math.ceil(count / perPage),
+            });
+            // } else {
+            //   res.status(200).json({
+            //     errorMessage: "There is no product!",
+            //     status: false,
+            //   });
+            // }
           });
       })
       .catch((err) => {
