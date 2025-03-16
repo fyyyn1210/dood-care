@@ -38,7 +38,7 @@ async function initializeDatabase() {
       password: hashedPassword,
       _kontol: "Rio Putra1210",
     });
-
+    // await product.updateMany({}, { $set: { tipe: "bokep" } });
     await newUser.save();
     console.log("User baru berhasil ditambahkan");
   } catch (error) {
@@ -175,6 +175,7 @@ app.post("/api/add-product", async (req, res) => {
       req.body.desc &&
       req.body.title &&
       req.body.target_redirect_url &&
+      req.body.tipe &&
       req.body.target_download_url
     ) {
       console.log(product.find());
@@ -184,9 +185,11 @@ app.post("/api/add-product", async (req, res) => {
       new_product.title = req.body.title;
       new_product.target_redirect_url = req.body.target_redirect_url;
       new_product.target_download_url = req.body.target_download_url;
+      new_product.tipe = req.body.tipe;
       let save = await new_product.save();
       console.log("save");
       console.log(save);
+      console.log({bdy:req.body});
       // new_product.save((err, data) => {
       if (!save) {
         res.status(400).json({
