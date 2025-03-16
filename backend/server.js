@@ -256,14 +256,14 @@ app.get("/api/get-care-player", async (req, res) => {
     if (!targetItem) {
       return res.status(404).json({ status: false, message: "Item not found" });
     }
-    const dataAtas = await product
+    let dataAtas = await product
       .find({
         ...query,
         _id: { $gte: targetItem._id },
       })
       .limit(5);
 
-    const dataBawah = await product
+    let dataBawah = await product
       .find({
         ...query,
         _id: { $gt: dataAtas[dataAtas.length - 1]._id },
