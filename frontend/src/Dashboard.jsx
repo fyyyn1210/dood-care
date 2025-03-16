@@ -306,6 +306,7 @@ class Dashboard extends Component {
             <TableHead>
               <TableRow>
                 <TableCell align="center">Title</TableCell>
+                <TableCell align="center">UUID</TableCell>
                 <TableCell align="center">Image</TableCell>
                 <TableCell align="center">Description</TableCell>
                 <TableCell align="center">Target Redirect</TableCell>
@@ -323,6 +324,9 @@ class Dashboard extends Component {
                 <TableRow key={row.title}>
                   <TableCell align="center" component="th" scope="row">
                     {row.title}
+                  </TableCell>
+                  <TableCell align="center">
+                    {row._id}
                   </TableCell>
                   <TableCell align="center">
                     <img src={`${row.url_foto}`} width="70" height="70" />
