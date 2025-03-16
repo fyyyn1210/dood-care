@@ -12,6 +12,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Select,
+  MenuItem,
   TableCell,
 } from "@mui/material";
 import { Pagination } from "@mui/material";
@@ -33,6 +35,7 @@ class Dashboard extends Component {
       title: "",
       target_redirect_url: "",
       target_download_url: "",
+      tipe: "",
       page: 1,
       search: "",
       products: [],
@@ -45,7 +48,7 @@ class Dashboard extends Component {
   componentDidMount = () => {
     let token = localStorage.getItem("token");
     if (!token) {
-      return this.props.history.push('/login');
+      return this.props.history.push("/login");
     } else {
       this.setState({ token: token }, () => {
         this.getProduct();
@@ -80,12 +83,11 @@ class Dashboard extends Component {
         //   icon: "error",
         //   type: "error",isError
         // });
-        this.setState({isError: true});
-        console.dir({errorWhenFetch : err.response.data})
+        this.setState({ isError: true });
+        console.dir({ errorWhenFetch: err.response.data });
         this.setState({ loading: false, products: [], pages: 0 }, () => {});
       });
   };
-
 
   pageChange = (e, page) => {
     this.setState({ page: page }, () => {
@@ -100,7 +102,7 @@ class Dashboard extends Component {
   };
 
   onChange = (e) => {
-    console.log(this.state)
+    console.log(this.state);
     if (e.target.files && e.target.files[0] && e.target.files[0].name) {
       this.setState({ fileName: e.target.files[0].name }, () => {});
     }
@@ -119,6 +121,7 @@ class Dashboard extends Component {
     file.append("title", this.state.title);
     file.append("target_redirect_url", this.state.target_redirect_url);
     file.append("target_download_url", this.state.target_download_url);
+    file.append("tipe", this.state.tipe);
 
     axios
       .post("https://dood-server.vercel.app/api/add-product", this.state, {
@@ -160,6 +163,7 @@ class Dashboard extends Component {
       url_foto: "",
       title: "",
       target_download_url: "",
+      tipe: "",
       target_redirect_url: "",
     });
   };
@@ -169,7 +173,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    if(this.state.isError) return <h1>Page Not Found!</h1>
+    if (this.state.isError) return <h1>Page Not Found!</h1>;
     return (
       <div>
         {this.state.loading && <LinearProgress size={40} />}
@@ -182,7 +186,7 @@ class Dashboard extends Component {
             size="small"
             onClick={this.handleProductOpen}
           >
-            Add Product
+            Add Item
           </Button>
           <Button
             className="button_style"
@@ -201,7 +205,6 @@ class Dashboard extends Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-
           <DialogTitle id="alert-dialog-title">Add Product</DialogTitle>
           <DialogContent>
             <TextField
@@ -258,6 +261,21 @@ class Dashboard extends Component {
               placeholder="target_download_url"
               required
             />
+            <br />
+            <Select
+              id="standard-select"
+              name="tipe"
+              value={this.state.tipe}
+              onChange={this.onChange}
+              displayEmpty
+              required
+            >
+              <MenuItem value="" disabled>
+                Pilih Tipe
+              </MenuItem>
+              <MenuItem value="komik">Komik</MenuItem>
+              <MenuItem value="bokep">Bokep</MenuItem>
+            </Select>
           </DialogContent>
 
           <DialogActions>
@@ -270,7 +288,7 @@ class Dashboard extends Component {
                 this.state.desc == "" ||
                 this.state.target_redirect_url == "" ||
                 this.state.title == "" ||
-                this.state.url_foto == ""
+                this.state.url_foto == "" || this.state.tipe == ""
               }
               onClick={(e) => this.addProduct()}
               color="primary"
@@ -292,10 +310,11 @@ class Dashboard extends Component {
                 <TableCell align="center">Description</TableCell>
                 <TableCell align="center">Target Redirect</TableCell>
                 <TableCell align="center">Target Download</TableCell>
+                <TableCell align="center">Tipe</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-                                          {/* // req.body.url_foto &&
+              {/* // req.body.url_foto &&
 // req.body.desc &&
 // req.body.title &&
 // req.body.target_redirect_url &&
@@ -306,15 +325,18 @@ class Dashboard extends Component {
                     {row.title}
                   </TableCell>
                   <TableCell align="center">
-                    <img
-                      src={`${row.url_foto}`}
-                      width="70"
-                      height="70"
-                    />
+                    <img src={`${row.url_foto}`} width="70" height="70" />
                   </TableCell>
                   <TableCell align="center">{row.desc}</TableCell>
-                  <TableCell align="center">{row.target_redirect_url}</TableCell>
-                  <TableCell align="center">{row.target_download_url}</TableCell>
+                  <TableCell align="center">
+                    {row.target_redirect_url}
+                  </TableCell>
+                  <TableCell align="center">
+                    {row.target_download_url}
+                  </TableCell>
+                  <TableCell align="center">
+                    {row?.tipe}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
