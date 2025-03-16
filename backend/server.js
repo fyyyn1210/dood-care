@@ -242,6 +242,41 @@ app.get("/api/get-product", async (req, res) => {
     });
   }
 });
+// get iplayer
+app.get("/api/get-care-player", async (req, res) => {
+  try {
+    const { _id } = req.query;
+    if (!_id) {
+      return res.status(400).json({ status: false, message: "UUID is required" });
+    }
+    const query = { tipe: "bokep" };
+    const targetItem = await product.findOne({ _id, ...query });
+    if (!targetItem) {
+      return res.status(404).json({ status: false, message: "Item not found" });
+    }
+    const dataAtas = await product.find({ 
+      ...query, 
+      _id: { $gte: targetItem._id } 
+    }).limit(5);
+
+    const dataBawah = await product.find({ 
+      ...query, 
+      _id: { $gt: dataAtas[dataAtas.length - 1]._id } 
+    }).limit(6);
+    res.status(200).json({
+      status: true,
+      title: "Data retrieved",
+      dataAtas,
+      dataBawah,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      errorMessage: err.message || "Something went wrong!",
+      status: false,
+    });
+  }
+});
 
 
 app.listen(2000, () => {
