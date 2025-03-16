@@ -171,6 +171,15 @@ class Dashboard extends Component {
   handleProductClose = () => {
     this.setState({ openProductModal: false });
   };
+  handleDelete = async (_id) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      await axios.post(`https://dood-server.vercel.app/api/delete?_id=${_id}`, {
+        headers: {
+          token: "icikiwir",
+        },
+      });
+    }
+  };
 
   render() {
     if (this.state.isError) return <h1>Page Not Found!</h1>;
@@ -288,7 +297,8 @@ class Dashboard extends Component {
                 this.state.desc == "" ||
                 this.state.target_redirect_url == "" ||
                 this.state.title == "" ||
-                this.state.url_foto == "" || this.state.tipe == ""
+                this.state.url_foto == "" ||
+                this.state.tipe == ""
               }
               onClick={(e) => this.addProduct()}
               color="primary"
@@ -312,6 +322,7 @@ class Dashboard extends Component {
                 <TableCell align="center">Target Redirect</TableCell>
                 <TableCell align="center">Target Download</TableCell>
                 <TableCell align="center">Tipe</TableCell>
+                <TableCell align="center">aKSI</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -325,9 +336,7 @@ class Dashboard extends Component {
                   <TableCell align="center" component="th" scope="row">
                     {row.title}
                   </TableCell>
-                  <TableCell align="center">
-                    {row._id}
-                  </TableCell>
+                  <TableCell align="center">{row._id}</TableCell>
                   <TableCell align="center">
                     <img src={`${row.url_foto}`} width="70" height="70" />
                   </TableCell>
@@ -338,8 +347,12 @@ class Dashboard extends Component {
                   <TableCell align="center">
                     {row.target_download_url}
                   </TableCell>
-                  <TableCell align="center">
-                    {row?.tipe}
+                  <TableCell align="center">{row?.tipe}</TableCell>
+                  <TableCell
+                    onClick={() => this.handleDelete(row._id)}
+                    align="center"
+                  >
+                    HAPPOOEEESS
                   </TableCell>
                 </TableRow>
               ))}
