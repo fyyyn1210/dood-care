@@ -217,50 +217,32 @@ app.post("/api/add-product", async (req, res) => {
   }
 });
 
-app.get("/api/get-product", (req, res) => {
+app.get("/api/get-product", async (req, res) => {
   try {
-    var query = { where: { tipe: "bokep" } };
-    var perPage = 5;
-    var page = req.query.page || 1;
-    product
-      .find()
-      // .skip(perPage * page - perPage)
-      // .limit(perPage)
-      .then((data) => {
-        product
-          .find(query)
-          .countDocuments()
-          .then((count) => {
-            // if (data && data.length > 0) {
-            res.status(200).json({
-              status: true,
-              title: "Product retrived.",
-              products: data ?? [],
-              current_page: page,
-              total: count,
-              pages: Math.ceil(count / perPage),
-            });
-            // } else {
-            //   res.status(200).json({
-            //     errorMessage: "There is no product!",
-            //     status: false,
-            //   });
-            // }
-          });
-      })
-      .catch((err) => {
-        res.status(400).json({
-          errorMessage: err.message || err,
-          status: false,
-        });
-      });
-  } catch (e) {
-    res.status(400).json({
-      errorMessage: "Something went wrong!",
+    const query = { tipe: "bokep" };
+    const perPage = 25;
+    const page = parseInt(req.query.page) || 1;
+    const products = await product
+      .find(query)
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+    const total = await product.countDocuments(query);
+    res.status(200).json({
+      status: true,
+      title: "Product retrieved.",
+      products: products ?? [],
+      current_page: page,
+      total: total,
+      pages: Math.ceil(total / perPage),
+    });
+  } catch (err) {
+    res.status(500).json({
+      errorMessage: err.message || "Something went wrong!",
       status: false,
     });
   }
 });
+
 
 app.listen(2000, () => {
   console.log("Server is Runing On port 2000");
