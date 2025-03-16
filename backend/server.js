@@ -247,29 +247,40 @@ app.get("/api/get-care-player", async (req, res) => {
   try {
     const { _id } = req.query;
     if (!_id) {
-      return res.status(400).json({ status: false, message: "UUID is required" });
+      return res
+        .status(400)
+        .json({ status: false, message: "UUID is required" });
     }
     const query = { tipe: "bokep" };
     const targetItem = await product.findOne({ _id, ...query });
     if (!targetItem) {
       return res.status(404).json({ status: false, message: "Item not found" });
     }
-    const dataAtas = await product.find({ 
-      ...query, 
-      _id: { $gte: targetItem._id } 
-    }).limit(5);
+    const dataAtas = await product
+      .find({
+        ...query,
+        _id: { $gte: targetItem._id },
+      })
+      .limit(5);
 
-    const dataBawah = await product.find({ 
-      ...query, 
-      _id: { $gt: dataAtas[dataAtas.length - 1]._id } 
-    }).limit(6);
+    const dataBawah = await product
+      .find({
+        ...query,
+        _id: { $gt: dataAtas[dataAtas.length - 1]._id },
+      })
+      .limit(6);
+
+    if (dataBawah.length === 0 && dataAtas.length > 3) {
+      dataBawah = dataAtas.slice(-3);
+      dataAtas = dataAtas.slice(0, -3);
+    }
+
     res.status(200).json({
       status: true,
       title: "Data retrieved",
       dataAtas,
       dataBawah,
     });
-
   } catch (err) {
     res.status(500).json({
       errorMessage: err.message || "Something went wrong!",
@@ -277,7 +288,6 @@ app.get("/api/get-care-player", async (req, res) => {
     });
   }
 });
-
 
 app.listen(2000, () => {
   console.log("Server is Runing On port 2000");
