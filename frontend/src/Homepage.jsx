@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Homepage.css";
 import axios from "axios";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const Homepage = () => {
   const [datas, setDatas] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   function getRandomTime() {
     const hour = Math.floor(Math.random() * 24);
@@ -14,17 +16,35 @@ const Homepage = () => {
   }
 
   const fetch = async () => {
-    let res = await axios.get("https://dood-server.vercel.app/api/get-product?", {
-      headers: {
-        token: "icikiwir",
-      },
-    });
+    let res = await axios.get(
+      "https://dood-server.vercel.app/api/get-product?",
+      {
+        headers: {
+          token: "icikiwir",
+        },
+      }
+    );
     setDatas(res?.data?.products);
+    setLoading(false);
   };
 
   useEffect(() => {
     fetch();
   }, []);
+  if (loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          width: "100vw",
+        }}
+      >
+        <ScaleLoader color="gray" />
+      </div>
+    );
   return (
     <>
       <header>
