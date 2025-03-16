@@ -189,7 +189,7 @@ app.post("/api/add-product", async (req, res) => {
       let save = await new_product.save();
       console.log("save");
       console.log(save);
-      console.log({bdy:req.body});
+      console.log({ bdy: req.body });
       // new_product.save((err, data) => {
       if (!save) {
         res.status(400).json({
@@ -219,17 +219,7 @@ app.post("/api/add-product", async (req, res) => {
 
 app.get("/api/get-product", (req, res) => {
   try {
-    var query = {};
-    // query["$and"] = [];
-    // query["$and"].push({
-    //   is_delete: false,
-    //   user_id: req.user.id,
-    // });
-    // if (req.query && req.query.search) {
-    //   query["$and"].push({
-    //     name: { $regex: req.query.search },
-    //   });
-    // }
+    var query = { where: { tipe: "bokep" } };
     var perPage = 5;
     var page = req.query.page || 1;
     product
