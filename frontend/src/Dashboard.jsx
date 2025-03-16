@@ -175,7 +175,7 @@ class Dashboard extends Component {
     if (window.confirm("Are you sure you want to delete this item?")) {
       await axios.post(`https://dood-server.vercel.app/api/delete?_id=${_id}`, {
         headers: {
-          token: "icikiwir",
+          token: this.state.token,
         },
       });
     }

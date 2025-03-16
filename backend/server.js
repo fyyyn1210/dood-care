@@ -65,7 +65,7 @@ app.use("/", (req, res, next) => {
   try {
     if (
       req.path == "/api/login" ||
-      req.path == "/api/delete" ||
+      // req.path == "/api/delete" ||
       req.path == "/api/register" ||
       req.path == "/"
     ) {
