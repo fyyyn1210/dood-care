@@ -272,7 +272,6 @@ app.get("/api/get-care-player", async (req, res) => {
 
     if (dataBawah.length === 0 && dataAtas.length > 3) {
       dataBawah = dataAtas.slice(-3);
-      dataAtas = dataAtas.slice(0, -3);
     }
 
     res.status(200).json({
