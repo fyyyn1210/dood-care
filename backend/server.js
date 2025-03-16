@@ -60,7 +60,29 @@ app.use(
     extended: false,
   })
 );
-
+app.post("/api/delete", async (req, res) => {
+  try {
+    const { _id } = req.query;
+    const productExists = await product.findById(_id);
+    if (!productExists) {
+      return res.status(404).json({
+        status: false,
+        message: "data not found.",
+      });
+    }
+    await product.findByIdAndDelete(_id);
+    res.status(200).json({
+      status: true,
+      message: "data deleted successfully.",
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: false,
+      errorMessage:
+        err.message || "Something went wrong while deleting the product!",
+    });
+  }
+});
 app.use("/", (req, res, next) => {
   try {
     if (
@@ -217,29 +239,7 @@ app.post("/api/add-product", async (req, res) => {
     });
   }
 });
-app.post("/api/delete", async (req, res) => {
-  try {
-    const { _id } = req.query;
-    const productExists = await product.findById(_id);
-    if (!productExists) {
-      return res.status(404).json({
-        status: false,
-        message: "data not found.",
-      });
-    }
-    await product.findByIdAndDelete(_id);
-    res.status(200).json({
-      status: true,
-      message: "data deleted successfully.",
-    });
-  } catch (err) {
-    res.status(500).json({
-      status: false,
-      errorMessage:
-        err.message || "Something went wrong while deleting the product!",
-    });
-  }
-});
+
 app.get("/api/get-product", async (req, res) => {
   try {
     const query = { tipe: "bokep" };
