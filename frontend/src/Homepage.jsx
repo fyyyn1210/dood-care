@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Homepage.css";
+import icon from "./../public/icon.svg"
 import axios from "axios";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
@@ -50,7 +51,7 @@ const Homepage = () => {
       <header>
         <div className="logo-container">
           <img
-            src="https://i.doodcdn.co/img/logo-s.png"
+            src={icon}
             alt="DoodCare logo"
             className="logo"
           />
@@ -121,12 +122,12 @@ const Homepage = () => {
         <div className="footer-content">
           <div className="footer-section">
             <img
-              src="https://i.doodcdn.co/img/logo-s.png"
+              src={icon}
               alt="DoodCare logo"
               className="logo"
               style={{ width: "100px", margin: "0 auto" }}
             />
-            {/* <img src="https://i.doodcdn.co/img/logo-s.png" alt="DoodCare logo" className="logo" /> */}
+            {/* <img src={icon} alt="DoodCare logo" className="logo" /> */}
             <p>
               DoodCare - Search and discover videos easily from a variety of
               categories.
