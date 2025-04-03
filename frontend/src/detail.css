@@ -1,0 +1,93 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Main container style */
+  .container {
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  /* Card style */
+  .card {
+    background-color: #2d2d2d;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 50%;
+  }
+  
+  /* Relative container for image */
+  .image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  /* Image style */
+  .image-container img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  /* Play button (centered over image) */
+  .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    color: white;
+  }
+  
+  /* Video details container */
+  .details {
+    background-color: #000;
+    color: white;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+  }
+  
+  /* Video file name style */
+  .details p:first-child {
+    font-size: 1.125rem;
+    font-weight: bold;
+  }
+  
+  /* Video info style */
+  .details p:last-child {
+    font-size: 0.875rem;
+    color: #a1a1a1;
+  }
+  
+  /* Button container */
+  .button-container {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  /* Download button style */
+  .download-button {
+    background-color: #FF9900;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    width: 30%;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .download-button:hover {
+    background-color: #ff9900be;
+  }
+  

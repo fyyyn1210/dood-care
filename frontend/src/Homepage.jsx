@@ -3,6 +3,7 @@ import "./Homepage.css";
 import icon from "./../public/icon.svg"
 import axios from "axios";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import Card from "./Card";
 
 const Homepage = () => {
   const [datas, setDatas] = useState(null);
@@ -74,38 +75,7 @@ const Homepage = () => {
         <div className="video-grid">
           {datas &&
             datas.map((row, i) => (
-              <div className="video-item" key={i ?? row.id}>
-                <img
-                  src={
-                    row.url_foto ??
-                    "https://static.izzi.asia/images/no-image.png"
-                  }
-                  alt="Video thumbnail"
-                  className="thumbnail"
-                  onClick={() =>
-                    (window.location.href = row.target_redirect_url)
-                  }
-                />
-                <div className="video-info">
-                  <br />
-                  <p className="video-title">{row.title && row.title}</p>
-                  <div className="video-meta">
-                    <p className="video-duration">
-                      <i className="fas fa-clock"></i>
-                      {getRandomTime() ?? "06:03"}
-                    </p>
-                    <button
-                      onClick={() =>
-                        (window.location.href = row.target_download_url)
-                      }
-                      className="download-btn"
-                    >
-                      <i className="fas fa-download"></i>
-                      Download
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <Card {...{row,getRandomTime}}  key={i ?? row.id}/>
             ))}
         </div>
 
