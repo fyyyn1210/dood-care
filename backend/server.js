@@ -8,12 +8,6 @@ var   multer     = require("multer"),
       path       = require("path");
 var   mongoose   = require("mongoose");
 
-  // pw: jDVH5KavKZeafq32
-  // uname: williamvancyson
-  // db: sample_mflix
-  // mongodb+srv://williamvancyson:jDVH5KavKZeafq32@cluster0.fjxa0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-  // mongoose.connect("mongodb://localhost/productDB");
-
 const uri = `mongodb+srv://williamvancyson:jDVH5KavKZeafq32@cluster0.fjxa0.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Cluster0`;
 mongoose
   .connect(uri)
@@ -265,6 +259,28 @@ app.get("/api/get-product", async (req, res) => {
     });
   }
 });
+  // get detail :any
+  app.get("/api/detail", async (req, res) => {
+    try {
+      const { _id } = req.query;
+      if (!_id) {
+        return res
+          .status(400)
+          .json({ status: false, message: "UUID is required" });
+      }
+      const targetItem = await product.findOne({ _id });
+      res.status(200).json({
+        status: true,
+        title : "Data retrieved",
+        data  : targetItem,
+      });
+    } catch (err) {
+      res.status(500).json({
+        errorMessage: err.message || "Something went wrong!",
+        status      : false,
+      });
+    }
+  });
   // get iplayer
 app.get("/api/get-care-player", async (req, res) => {
   try {
